@@ -2,7 +2,7 @@ package com.company;
 
 public class Config {
     public static String kafkaHost() {
-        return getEnvironmentVariable("WM_KAFKA_HOST", "localhost");
+        return getEnvironmentVariable("WM_KAFKA_HOST", "localhost:9092");
     }
 
     public static String graphiteHostName() {
