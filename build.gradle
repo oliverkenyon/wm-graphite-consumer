@@ -1,0 +1,31 @@
+group 'ScottLogic'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.apache.kafka:kafka-clients:0.10.2.0'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile group: 'org.python', name: 'jython', version: '2.7.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.1'
+
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'com.company.Main'
+        )
+    }
+}
