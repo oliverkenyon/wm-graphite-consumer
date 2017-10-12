@@ -1,0 +1,33 @@
+# Compose file to launch Kafka, Graphite and Grafana for use by the Java code in this project
+version: "3"
+services:
+
+  kafka:
+    image: spotify/kafka
+    hostname: kafka
+    container_name: kafka
+    volumes:
+      - /storage/kafka/kafka-logs:/tmp/kafka-logs
+    ports:
+      - "2181:2181"
+      - "9092:9092"
+    environment:
+      ADVERTISED_HOST: kafka
+      ADVERTISED_PORT: 9092
+      LOG_RETENTION_HOURS: 1440
+  
+  graphite:
+    image: sitespeedio/graphite
+    ports:
+      - "2003:2003"
+      - "2004:2004"
+      - "8080:80"
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - /storage/grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    links:
+      - graphite
