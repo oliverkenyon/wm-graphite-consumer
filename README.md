@@ -1,12 +1,14 @@
 # Weather Monitor Graphite Consumer
 
-Subscribes to a stream of observation data from Kafka and feeds into Graphite to allow the data to be visualized
+Subscribes to a stream of observation data from Kafka and feeds into Graphite to allow the data to be visualized. The expected data format is that produced by the [wm-producer](../../../wm-producer) project.
 
 ## Configuration
 
 The application uses the following settings which should be present as environment variables:
 
- - WM_KAFKA_HOST: Host and port for kafka, e.g. "localhost:9092"
+ - WM_KAFKA_HOST: Host and port for kafka. Defaults to "localhost:9092"
+ - WM_GRAPHITE_HOST_NAME: Host name only for Graphite, defaults to "localhost"
+ - WM_GRAPHITE_PORT: Port for Graphite (pickle protocol), defaults to "2004"
  - WM_GRAPHITE_FROM_BEGINNING: optional, set to "true" to consume from the beginning of the Kafka stream
  
 ## Build
